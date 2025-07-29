@@ -1,0 +1,96 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.5.4'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'br.com.vrsoftware.vrreprocessarscanntech'
+version = '0.0.1-SNAPSHOT'
+
+tasks.withType(JavaCompile) {
+	options.fork = true
+	sourceCompatibility = 21
+	targetCompatibility = 21
+	options.encoding = 'UTF-8'
+}
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+configurations {
+	developmentOnly
+	runtimeClasspath {
+		extendsFrom developmentOnly
+	}
+
+	compileJava.options.encoding = 'UTF-8'
+	compileTestJava.options.encoding = 'UTF-8'
+	javadoc.options.encoding = 'UTF-8'
+}
+
+repositories {
+	maven() {
+		name = 'Central repo'
+		url = "https://repo1.maven.org/maven2/"
+	}
+	mavenCentral()
+	maven() {
+		name = 'VRCommons'
+		url = "https://maven.pkg.github.com/vrsoftbr/vrcommons"
+		credentials {
+			username = project.findProperty("github.user") ?: System.getenv("USERNAME")
+			password = project.findProperty("github.token") ?: System.getenv("TOKEN")
+		}
+	}
+}
+
+ext {
+	set('springCloudVersion', "2023.0.0")
+}
+
+dependencies {
+	implementation 'br.com.vrsoftware:vrcommons:4.0.0-8'
+	//configuração para pegar o VRCommons local
+	//implementation project(':VRCommons')
+	implementation files("lib/VRConnection-4.0.0-1.jar")
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	runtimeOnly 'org.springframework.boot:spring-boot-starter-tomcat'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'org.netbeans.api:org-openide-util:RELEASE110'
+	implementation 'org.netbeans.api:org-openide-util-lookup:RELEASE110'
+
+
+	compileOnly 'org.projectlombok:lombok'
+
+	//Serialização JSON
+	implementation 'com.google.code.gson:gson:2.8.9'
+
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.2'
+	testImplementation 'org.junit.jupiter:junit-jupiter-params:5.5.2'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation "org.mockito:mockito-core:3.+"
+	runtimeOnly 'org.postgresql:postgresql'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
