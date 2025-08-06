@@ -1,0 +1,313 @@
+/* Variáveis CSS */
+:root {
+    --primary-color: #f3740c;
+    --primary-hover: #d9650a;
+    --primary-light: #fff5eb;
+    --primary-border: #f6b78c;
+}
+
+/* Header */
+.card-header.custom-header {
+    background-color: var(--primary-color) !important;
+    color: #fff !important;
+}
+
+/* Tema */
+body {
+    background-color: #fdfdfd;
+    color: #333;
+    font-family: "Segoe UI", Arial, sans-serif;
+    padding-bottom: 40px;
+}
+
+/* Cabeçalhos */
+h2 {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+}
+
+/* Inputs básicos */
+input, select {
+    background-color: #fff !important;
+    color: #333 !important;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 10px 12px;
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(243, 116, 12, 0.25);
+    outline: none;
+}
+
+/* --- Multi-select estilo pillbox --- */
+.select2-container .select2-selection--multiple {
+    min-height: 42px !important;
+    border: 2px solid #e9ecef !important;
+    border-radius: 8px !important;
+    padding: 6px 8px;
+    background-color: #fff !important;
+    display: flex;
+    flex-wrap: wrap;
+    transition: all 0.3s ease;
+}
+
+/* Chips (pills) */
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 5px 10px 5px 28px;
+    margin: 4px 5px 0 0;
+    font-size: 0.9rem;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    animation: fadeIn 0.2s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Botão X à esquerda */
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0;
+    color: rgba(255,255,255,0.8);
+    font-weight: bold;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: color 0.2s ease;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
+    color: #fff;
+}
+
+/* Efeito de entrada do chip */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Dropdown */
+.select2-container--default .select2-results__option {
+    padding: 8px 10px !important;
+    border-bottom: 1px solid #f2f2f2;
+    font-size: 0.95rem;
+}
+.select2-container--default .select2-results__option--highlighted {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+}
+.select2-container--default .select2-results>.select2-results__options {
+    max-height: 250px;
+}
+
+/* --- Select2 opções com checkbox e hover --- */
+.select2-results__option .option-item {
+    padding: 4px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.select2-results__option:hover .option-item {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+.select2-results__option:hover .option-item input {
+    border-color: #fff;
+}
+.select2-results__option .option-item input[type="checkbox"] {
+    pointer-events: none; /* evita interferir no clique */
+}
+
+/* Botões principais */
+button, .btn {
+    background-color: var(--primary-color);
+    border: none;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 8px;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+}
+button:hover, .btn:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(243, 116, 12, 0.3);
+}
+
+/* Botões customizados */
+.btn-primary-custom {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+    border-radius: 8px;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+}
+.btn-primary-custom:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(243, 116, 12, 0.3);
+}
+.btn-outline-primary-custom {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    background-color: transparent;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    padding: 6px 12px;
+    transition: all 0.3s ease;
+}
+.btn-outline-primary-custom:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+/* Inputs de formulário */
+.form-control {
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 10px 12px;
+    transition: all 0.3s ease;
+}
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(243, 116, 12, 0.25);
+}
+
+/* Alerts */
+.alert-success {
+    background-color: var(--primary-light);
+    border: 1px solid var(--primary-border);
+    color: #663c00;
+    border-radius: 8px;
+}
+.alert-danger {
+    background-color: #fff0f0;
+    border: 1px solid #ffaaaa;
+    color: #8a1f1f;
+    border-radius: 8px;
+}
+.alert-primary {
+    background-color: var(--primary-light);
+    border: 1px solid var(--primary-border);
+    color: #663c00;
+}
+
+/* Tabela */
+table {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+table thead {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+table tbody tr:hover {
+    background-color: var(--primary-light);
+}
+.border-laranja {
+    border: 2px solid #f3740c;
+    box-shadow: 0 0 8px rgba(243, 116, 12, 0.2);
+}
+
+/* Badges */
+.badge-primary {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+/* Loading state para botões */
+.btn-loading {
+    position: relative;
+    pointer-events: none;
+}
+.btn-loading::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: button-loading-spinner 1s ease infinite;
+}
+@keyframes button-loading-spinner {
+    from { transform: rotate(0turn); }
+    to { transform: rotate(1turn); }
+}
+
+/* Estatísticas de seleção */
+.selection-stats {
+    background-color: var(--primary-light);
+    border: 1px solid var(--primary-border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    color: #663c00;
+    margin-top: 8px;
+}
+
+/* Responsividade */
+@media (max-width: 576px) {
+    .card {
+        margin: 10px !important;
+        max-width: none !important;
+    }
+    .d-flex.justify-content-between {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .btn {
+        width: 100%;
+    }
+    .select2-container .select2-selection--multiple {
+        min-height: 38px !important;
+    }
+}
+
+/* Melhorias adicionais */
+.fw-semibold { font-weight: 600; }
+.text-muted.small { font-size: 0.85rem; color: #6c757d !important; }
+
+/* Animações suaves */
+* { transition: all 0.2s ease-in-out; }
+
+/* Focus states melhorados */
+.form-select:focus,
+.form-control:focus,
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.2rem rgba(243, 116, 12, 0.25) !important;
+}
+
+/* Botões de ícone no header */
+.icon-btn {
+    color: #fff;
+    text-decoration: none;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+.icon-btn:hover {
+    color: #ffd9b3; /* tom mais claro no hover */
+    transform: scale(1.2);
+}

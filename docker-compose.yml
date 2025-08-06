@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+  app:
+    container_name: "vrreprocessarscanntech"
+    image: vrsoftbr/vrreprocessarscanntech:latest
+    build:
+      context: .
+    ports:
+      - "9011:9011"
+    volumes:
+      # - /vr/vr.properties:/vr/vr.properties:ro   # Linux
+      - C:/vr/vr.properties:/vr/vr.properties:ros  # Windows
+    restart: always

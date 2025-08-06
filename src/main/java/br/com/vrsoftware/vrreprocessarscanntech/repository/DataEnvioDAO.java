@@ -3,6 +3,7 @@ package br.com.vrsoftware.vrreprocessarscanntech.repository;
 import br.com.vrsoftware.vrreprocessarscanntech.model.DataEnvio;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
+import java.sql.Date;
 import java.util.*;
 
 @Repository
@@ -21,7 +22,7 @@ public class DataEnvioDAO {
                 LIMIT 1
                 """)
                 .param("idLoja", idLoja)
-                .param("data", data)
+                .param("data", Date.valueOf(data))
                 .query(Integer.class)
                 .optional()
                 .orElse(null);
@@ -35,7 +36,7 @@ public class DataEnvioDAO {
                 RETURNING id
                 """)
                 .param("idLoja", dataEnvio.getIdLoja())
-                .param("data", dataEnvio.getData())
+                .param("data", Date.valueOf(dataEnvio.getData()))
                 .query(Integer.class)
                 .single();
     }
@@ -52,13 +53,16 @@ public class DataEnvioDAO {
     }
 
     public List<DataEnvio> listarParaReprocessar(Integer idLoja) {
-        return jdbc.sql("""
-                SELECT * FROM scanntech.dataenvio
-                WHERE id_loja = :idLoja AND reprocessar = true
-                ORDER BY data ASC
-                """)
-                .param("idLoja", idLoja)
-                .query(DataEnvio.class)
-                .list();
+        String sql = """
+        SELECT * FROM scanntech.dataenvio
+        WHERE reprocessar = true
+        """ + (idLoja != null ? " AND id_loja = :idLoja" : "") + """
+        ORDER BY data ASC
+    """;
+
+        var query = jdbc.sql(sql);
+        if (idLoja != null) query.param("idLoja", idLoja);
+
+        return query.query(DataEnvio.class).list();
     }
 }

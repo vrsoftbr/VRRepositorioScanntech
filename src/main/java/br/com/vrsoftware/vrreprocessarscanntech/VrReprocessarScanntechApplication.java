@@ -7,8 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class VrReprocessarScanntechApplication {
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(VrReprocessarScanntechApplication.class, args);
 	}
-
 }

@@ -3,6 +3,7 @@ package br.com.vrsoftware.vrreprocessarscanntech.controller;
 import br.com.vrsoftware.vrreprocessarscanntech.dto.ReprocessarRequestDTO;
 import br.com.vrsoftware.vrreprocessarscanntech.model.DataEnvio;
 import br.com.vrsoftware.vrreprocessarscanntech.service.DataEnvioService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,9 +22,9 @@ public class DataEnvioController {
      * Marca registros para reprocessar (baseado em lojas e período).
      */
     @PostMapping("/reprocessar")
-    public String reprocessar(@RequestBody ReprocessarRequestDTO request) {
+    public String reprocessar(@Valid @RequestBody ReprocessarRequestDTO request) {
         try {
-            dataEnvioService.reprocessar(request.getLojas(), request.getDataInicio(), request.getDataFim());
+            dataEnvioService.salvar(request.getLojas(), request.getDataInicio(), request.getDataFim());
             return "Datas marcadas para reprocessamento!";
         } catch (Exception e) {
             throw new RuntimeException("Erro ao reprocessar datas", e);
