@@ -80,7 +80,7 @@ docker tag vrreprocessarscanntech:latest vrsoftbr/vrreprocessarscanntech:<versã
 
 2° Gerar (build) a nova imagem:
 ```
-docker build --secret id=gradle_props,src=C:\Users\Vr-Fulano\.gradle\gradle.properties -t vrreprocessarscanntech:<versão> .
+docker build --secret id=gradle_props,src=C:\Users\SeuUsuário\.gradle\gradle.properties -t vrreprocessarscanntech:<versão> .
 ```
 
 3° Definir a imagem criada como latest:
