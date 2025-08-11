@@ -68,3 +68,28 @@ github.token=seutoken
 Ao realizar o processo de debug, o projeto utiliza o arquivo vr.properties da sua máquina.
 Isso significa que qualquer alteração pode ser testada localmente, sem a necessidade de alterar a imagem do Docker.
 ---
+
+## Geração de Imagens:
+Passos para gerar a imagem que será utilizada pelo container:
+
+1° Definar a tag latest que será subistituida:
+```
+docker tag vrreprocessarscanntech:latest vrsoftbr/vrreprocessarscanntech:<versão>
+```
+(Substitua <versão> pela versão da imagem)
+
+2° Gerar (build) a nova imagem:
+```
+docker build --secret id=gradle_props,src=C:\Users\Vr-Fulano\.gradle\gradle.properties -t vrreprocessarscanntech:<versão> .
+```
+
+3° Definir a imagem criada como latest:
+```
+docker tag vrreprocessarscanntech:<versão> vrsoftbr/vrreprocessarscanntech:latest
+```
+
+4° Enviar a imagem para o repositório (push)
+```
+docker push vrsoftbr/vrreprocessarscanntech:latest
+```
+
