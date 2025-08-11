@@ -8,6 +8,6 @@ services:
     ports:
       - "9011:9011"
     volumes:
-      # - /vr/vr.properties:/vr/vr.properties:ro   # Linux
-      - C:/vr/vr.properties:/vr/vr.properties:ros  # Windows
+      # - /vr/vr.properties:/vr/vr.properties:ro  # Linux
+      - C:/vr/vr.properties:/vr/vr.properties:ro  # Windows
     restart: always

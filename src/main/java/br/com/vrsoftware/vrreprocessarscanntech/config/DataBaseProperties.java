@@ -5,8 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-//@PropertySource("file:/app/config/vr.properties")
-@PropertySource("file:/vr/vr.properties")
+@PropertySource("file:///vr/vr.properties")
 public class DataBaseProperties {
 
     public static final String POSTGRESQL_DRIVER = "org.postgresql.Driver";

@@ -1,6 +1,5 @@
 package br.com.vrsoftware.vrreprocessarscanntech.repository;
 
-import br.com.vrsoftware.vrreprocessarscanntech.config.DatabaseConfig;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
