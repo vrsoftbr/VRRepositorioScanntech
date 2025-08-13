@@ -39,6 +39,7 @@ github.token=seutoken
 
 ## Produção Passo-a-Passo:
 1° Verifique o Docker:
+- Confira se esta com o docker-compose-prod.
 - Certifique-se de que o Docker Desktop está em execução.
 - Confirme que você está logado na conta vrsoftbr.
 
@@ -47,9 +48,9 @@ github.token=seutoken
 - Verifique se a configuração de base de bancos não está apontando para localhost, mas sim para o IP correto do servidor de banco.
 
 3° Inicie os containers:
-- No terminal em que o docker-compose se entroca execute:
+- No terminal em que o docker-compose se encontra execute:
   ```
-  docker-compose up -d
+  docker compose --env-file .env.agente -f docker-compose-<vrreprocessarscanntech>.yml up -d
   ```
   
 4° Acesse a interface:
@@ -72,7 +73,7 @@ Isso significa que qualquer alteração pode ser testada localmente, sem a neces
 ## Geração de Imagens:
 Passos para gerar a imagem que será utilizada pelo container:
 
-1° Definar a tag latest que será subistituida:
+1° Defina a tag latest que será substituída:
 ```
 docker tag vrreprocessarscanntech:latest vrsoftbr/vrreprocessarscanntech:<versão>
 ```
@@ -80,7 +81,7 @@ docker tag vrreprocessarscanntech:latest vrsoftbr/vrreprocessarscanntech:<versã
 
 2° Gerar (build) a nova imagem:
 ```
-docker build --secret id=gradle_props,src=C:\Users\SeuUsuário\.gradle\gradle.properties -t vrreprocessarscanntech:<versão> .
+docker build --secret id=gradle_props,src=C:\Users\seuUsuario\.gradle\gradle.properties -t vrreprocessarscanntech:<versão> .
 ```
 
 3° Definir a imagem criada como latest:

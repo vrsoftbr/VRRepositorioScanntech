@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.5.4'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id 'jacoco'
 }
 
 group = 'br.com.vrsoftware.vrreprocessarscanntech'
@@ -18,6 +19,10 @@ java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(21)
 	}
+}
+
+jacoco {
+	toolVersion = "0.8.12"
 }
 
 configurations {
@@ -74,8 +79,48 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+	finalizedBy jacocoTestReport
 	jvmArgs = [
 			'-XX:+EnableDynamicAgentLoading',
 			'-Xshare:off'
 	]
+}
+
+jacocoTestReport {
+	dependsOn test
+	reports {
+		xml.required = true
+		html.required = true
+		csv.required = true
+		xml.outputLocation = file("${buildDir}/reports/jacoco/jacoco.xml")
+		html.outputLocation =  file("${buildDir}/jacocoHTML")
+		csv.outputLocation = file("${buildDir}/reports/jacoco/jacoc.csv")
+	}
+
+	afterEvaluate {
+		classDirectories.setFrom(
+				files(classDirectories.files.collect { dir ->
+					fileTree(dir: dir, exclude: [
+							'br/com/vrsoftware/vrreprocessarscanntech/config/**',
+							'br/com/vrsoftware/vrreprocessarscanntech/exception/**'
+					])
+				})
+		)
+	}
+
+	finalizedBy jacocoTestCoverageVerification
+}
+
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			limit{
+				counter = 'BRANCH'
+				minimum = 0.00
+			}
+			limit {
+				minimum = 0.00
+			}
+		}
+	}
 }
