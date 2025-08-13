@@ -24,6 +24,14 @@ public class DataEnvioService {
         this.dataProcessamentoService = dataProcessamentoService;
     }
 
+    /**
+     * Método responsável por gerar uma lista de datas no formato ISO
+     * (yyyy-MM-dd) entre as datas inicial e final informadas, incluindo ambas.
+     *
+     * @param dataInicio data inicial no formato yyyy-MM-dd
+     * @param dataFim data final no formato yyyy-MM-dd
+     * @return Conjunto de datas entre dataInicio e dataFim
+     */
     private Set<String> gerarDatas(String dataInicio, String dataFim) {
         Set<String> datas = new HashSet<>();
         LocalDate inicio = LocalDate.parse(dataInicio);
@@ -37,6 +45,20 @@ public class DataEnvioService {
         return datas;
     }
 
+    /**
+     * Método responsável por salvar registros de {@link DataEnvio} para as
+     * lojas informadas e intervalo de datas especificado. Caso já existam
+     * registros para a data e loja, serão reutilizados; caso contrário, serão
+     * criados novos. Ao final, é feito o reprocessamento dos registros.
+     *
+     * @param lojas lista de IDs das lojas para processamento
+     * @param dataInicio data inicial no formato yyyy-MM-dd
+     * @param dataFim data final no formato yyyy-MM-dd
+     *
+     * @throws IllegalArgumentException caso a lista de lojas seja vazia ou haja erro de formato de data
+     * @see DataEnvioDAO#incluirRetornaId(DataEnvio)
+     * @see DataEnvioDAO#reprocessarDataEnvio(List)
+     */
     @Transactional
     public void salvar(List<Integer> lojas, String dataInicio, String dataFim) {
         if (lojas == null || lojas.isEmpty()) {
@@ -85,10 +107,35 @@ public class DataEnvioService {
         }
     }
 
+    /**
+     * Método responsável por listar os registros de {@link DataEnvio}
+     * pendentes de reprocessamento para a loja informada.
+     *
+     * @param idLoja identificador da loja; caso seja {@code null}, lista de todas as lojas
+     * @return lista de registros de {@link DataEnvio} pendentes
+     *
+     * @see DataEnvioDAO#listarParaReprocessar(Integer)
+     */
     public List<DataEnvio> listarParaReprocessar(Integer idLoja) {
         return dataEnvioDAO.listarParaReprocessar(idLoja);
     }
 
+    /**
+     * Método responsável por listar um resumo dos registros de {@link DataEnvio}
+     * agrupados por loja, contendo:
+     * <ul>
+     *   <li>ID da loja</li>
+     *   <li>Descrição da loja</li>
+     *   <li>Total de registros pendentes</li>
+     *   <li>Data mais antiga</li>
+     *   <li>Data mais recente</li>
+     * </ul>
+     *
+     * @return lista de {@link LojaResumoDTO} ordenada pela descrição da loja
+     *
+     * @see LojaService#mapearIdParaNome()
+     * @see DataEnvioDAO#listarParaReprocessar(Integer)
+     */
     public List<LojaResumoDTO> listarResumoPorLoja() {
         List<DataEnvio> registros = dataEnvioDAO.listarParaReprocessar(null);
         if (registros == null) {

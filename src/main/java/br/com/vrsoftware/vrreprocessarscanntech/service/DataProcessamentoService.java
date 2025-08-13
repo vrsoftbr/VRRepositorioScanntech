@@ -12,6 +12,15 @@ public class DataProcessamentoService {
         this.dataProcessamentoDAO = dataProcessamentoDAO;
     }
 
+    /**
+     * Método responsável por obter a data de processamento configurada para
+     * a loja informada.
+     *
+     * @param idLoja identificador da loja
+     * @return data de processamento no formato ISO (yyyy-MM-dd)
+     *
+     * @throws IllegalArgumentException caso a data de processamento não esteja configurada
+     */
     public String getDataProcessamento(Integer idLoja) {
         String data = dataProcessamentoDAO.getDataProcessamento(idLoja);
         if (data == null) {
@@ -20,6 +29,12 @@ public class DataProcessamentoService {
         return data;
     }
 
+    /**
+     * Método responsável por obter a data de processamento mais antiga
+     * registrada no sistema.
+     *
+     * @return data mais antiga no formato ISO (yyyy-MM-dd)
+     */
     public String getDataMaisAntiga() {
         return dataProcessamentoDAO.getDataMaisAntiga();
     }

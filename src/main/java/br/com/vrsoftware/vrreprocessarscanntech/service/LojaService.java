@@ -16,10 +16,23 @@ public class LojaService {
         this.lojaDao = lojaDao;
     }
 
+    /**
+     * Método responsável por listar todas as lojas disponíveis no sistema.
+     *
+     * @return lista de lojas no formato {@link List} de {@link Map}, onde cada mapa
+     *         contém os atributos da loja (ex.: "id" e "descricao")
+     */
     public List<Map<String, Object>> listar() {
         return lojaDao.listarLojas();
     }
 
+    /**
+     * Método responsável por criar um mapeamento entre o ID da loja e seu nome.
+     *
+     * @return mapa contendo o ID da loja como chave e o nome (descrição) como valor
+     *
+     * @see LojaDAO#listarLojas()
+     */
     public Map<Integer, String> mapearIdParaNome() {
         return lojaDao.listarLojas().stream()
                 .collect(Collectors.toMap(
