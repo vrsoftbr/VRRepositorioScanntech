@@ -1,0 +1,9 @@
+services:
+  app:
+    container_name: vrreprocessarscanntech
+    image: vrsoftbr/vrreprocessarscanntech:latest
+    network_mode: "container:vr-agente"
+    pull_policy: always
+    volumes:
+      - ${VR_PATH}/vr.properties:/vr/vr.properties
+    restart: always
